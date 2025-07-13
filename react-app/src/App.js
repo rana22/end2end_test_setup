@@ -7,6 +7,7 @@ const App = () => {
   return (
     <>
       App component
+      <h3>init commit</h3>
     </>
   );
 };
