@@ -31,6 +31,7 @@ jobs:
       - name: Configure Git identity
         working-directory: ./react-app
         run: |
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
 
