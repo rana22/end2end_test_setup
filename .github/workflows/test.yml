@@ -22,7 +22,7 @@ jobs:
       ####################################
       - name: Install React app deps
         working-directory: ./react-app
-        run: npm ci
+        run: npm ci --legacy-peer-deps
 
       - name: Build React app
         working-directory: ./react-app
