@@ -44,7 +44,7 @@ jobs:
       ####################################
       - name: Install test-generator deps
         working-directory: ./test-generator
-        run: npm ci
+        run: npm ci --legacy-peer-deps
 
       - name: Install Playwright Browsers
         working-directory: ./test-generator
