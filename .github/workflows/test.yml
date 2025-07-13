@@ -50,9 +50,9 @@ jobs:
         working-directory: ./test-generator
         run: npx playwright install --with-deps
 
-      - name: Run Playwright Tests
+      - name: Run Playwright tests headlessly
         working-directory: ./test-generator
-        run: npx playwright test
+        run: npx playwright test --reporter=line, json
 
       ####################################
       # 📦 Upload Playwright Report

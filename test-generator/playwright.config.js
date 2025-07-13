@@ -11,12 +11,12 @@
 export default {
   projects: [
     {
-          testDir: './end2end/specs',
+      testDir: './end2end/specs',
       name: 'chromium',
       use: {
         browserName: 'chromium',
-        headless: false,
-        slowMo: 10000
+        headless: true,
+        slowMo: 1000
       }
     }
   ]
