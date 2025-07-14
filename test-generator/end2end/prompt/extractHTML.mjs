@@ -2,7 +2,10 @@ import puppeteer from "puppeteer";
 
 const BASE_URL = 'https://rana22.github.io/end2end_test_setup/';
 export async function getBodyHTML(url) {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+  headless: true,
+  args: ['--no-sandbox', '--disable-setuid-sandbox']
+});
   const page = await browser.newPage();
 
   await page.goto(url, { waitUntil: 'networkidle0' });

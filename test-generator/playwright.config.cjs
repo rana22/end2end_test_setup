@@ -22,7 +22,10 @@ export default {
         browserName: 'chromium',
         headless: true,
         slowMo: 100,
-        baseURL: 'https://rana22.github.io/end2end_test_setup/'
+        baseURL: 'https://rana22.github.io/end2end_test_setup/',
+         launchOptions: {
+          args: ['--no-sandbox']
+        }
       },
     }
   ]
