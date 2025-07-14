@@ -17,10 +17,12 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "^5.0.1",
     "react-sweet-state": "^2.7.1",
-    "react-twitter-embed": "^4.0.4"
+    "react-twitter-embed": "^4.0.4",
+    "strip-ansi": "^7.1.0"
   },
   "scripts": {
-    "test:e2e": "playwright test --reporter=line,json",
+    "extract-log": "node ./extractFailures.mjs",
+    "test:e2e": "npx playwright test",
     "e2e": "cd end2end && jest",
     "start": "react-scripts start",
     "build": "react-scripts build",

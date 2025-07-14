@@ -7,8 +7,7 @@ export async function createPrompt(htmlText) {
   const __dirname = path.dirname(__filename);
   const validTestCases = await fs.readFile(path.resolve(__dirname, './valid/valid.spec.js'), 'utf8');
   const inValidTestCases = await fs.readFile(path.resolve(__dirname, './invalid/test.specs.js'), 'utf8');
-
-
+  
   return `
       You are a end to end test generator.
       Analyse the given html content and create end to end test cases

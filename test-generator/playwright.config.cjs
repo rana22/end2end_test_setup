@@ -9,9 +9,14 @@
 // };
 
 export default {
+  testDir: './end2end/specs',
+  reporter: [
+    ['list'], // for CLI output
+    ['json', { outputFile: 'test-results/report.json' }], // for structured error logs
+    ['html', { outputFolder: 'test-results/html', open: 'never' }]
+  ],
   projects: [
     {
-      testDir: './end2end/specs',
       name: 'chromium',
       use: {
         browserName: 'chromium',
@@ -19,28 +24,7 @@ export default {
         slowMo: 100,
         baseURL: 'https://rana22.github.io/end2end_test_setup/'
       },
-    reporter: [
-      ['list'],
-      ['json',
-      { outputFile: 'test-results/report.json' }
-      ]]
     }
   ]
 };
 
-// const { defineConfig } = require('@playwright/test');
-
-// module.exports = defineConfig({
-//   testDir: './end2end/specs',
-//   use: {
-//     headless: true,
-//     viewport: { width: 1280, height: 720 },
-//     baseURL: 'https://rana22.github.io/end2end_test_setup'
-//   },
-//   reporter: [
-//     ['list'],
-//     ['json',
-//       { outputFile: 'test-results/report.json' }
-//     ]
-//   ],
-// });

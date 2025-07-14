@@ -10,6 +10,6 @@ test.describe('My React App', () => {
   });
 
   test('should contain specific text', async ({ page }) => {
-    await expect(page.locator('body')).toContainText('App component');
+    await expect(page.locator('body')).toContainText('App components');
   });
 });
