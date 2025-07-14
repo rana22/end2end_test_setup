@@ -20,7 +20,7 @@
     "react-twitter-embed": "^4.0.4"
   },
   "scripts": {
-    "test:e2e": "playwright test",
+    "test:e2e": "playwright test --reporter=line,json",
     "e2e": "cd end2end && jest",
     "start": "react-scripts start",
     "build": "react-scripts build",
