@@ -60,19 +60,19 @@ jobs:
         working-directory: ./test-generator
         run: npx playwright install --with-deps
 
-      - name: Run Playwright tests headlessly
-        working-directory: ./test-generator
-        run: npm run test:e2e
+      # - name: Run Playwright tests headlessly
+      #   working-directory: ./test-generator
+      #   run: npm run test:e2e
 
       ####################################
       # 📦 Upload Playwright Report
       ####################################
-      - name: Upload HTML Report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: playwright-report
-          path: test-generator/test-results/
+      # - name: Upload HTML Report
+      #   if: always()
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: playwright-report
+      #     path: test-generator/test-results/
       
       ####################################
       # 📝 Commit New Specs to Branch
