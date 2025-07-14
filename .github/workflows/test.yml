@@ -52,6 +52,8 @@ jobs:
 
       - name: Generate Playwright specs
         working-directory: ./test-generator
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: npm run generate
 
       - name: Install Playwright Browsers
