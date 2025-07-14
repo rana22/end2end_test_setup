@@ -5,7 +5,7 @@ import path from 'path';
 export async function createPrompt(htmlText) {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
-  const validTestCases = await fs.readFile(path.resolve(__dirname, './valid/valid.spec.js'), 'utf8');
+  const validTestCases = await fs.readFile(path.resolve(__dirname, './valid/valid.spec-test.js'), 'utf8');
   const inValidTestCases = await fs.readFile(path.resolve(__dirname, './invalid/test.specs.js'), 'utf8');
   
   return `

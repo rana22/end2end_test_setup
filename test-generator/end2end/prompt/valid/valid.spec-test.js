@@ -7,7 +7,7 @@ test.describe('My React App', () => {
   });
 
   test('should have correct title', async ({ page }) => {
-    await expect(page).toHaveTitle(/React/i);
+    await expect(page).toHaveTitle(/ICDC/i);
   });
 
   test('should contain specific text', async ({ page }) => {
