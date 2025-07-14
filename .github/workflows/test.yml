@@ -53,6 +53,9 @@ jobs:
       - name: Run Playwright tests headlessly
         working-directory: ./test-generator
         run: npx playwright test --reporter=line, json
+      
+      - name: Debug folder structure
+        run: ls -R
 
       ####################################
       # 📦 Upload Playwright Report
