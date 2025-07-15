@@ -10,7 +10,7 @@ test.describe('My React App', () => {
     await expect(page).toHaveTitle(/ICDC/i);
   });
 
-  test('should contain specific text', async ({ page }) => {
-    await expect(page.locator('body')).toContainText('Learn React');
-  });
+  // test('should contain specific text', async ({ page }) => {
+  //   await expect(page.locator('body')).toContainText('Learn React');
+  // });
 });

@@ -8,9 +8,9 @@ import { saveGeneratedTest } from "./saveTestFile.mjs";
 import { extractCodeObjects, generateTestCode } from "./testGenerator.mjs";
 
 const BASE_URL = 'https://rana22.github.io/end2end_test_setup/';
-async function main() {
+export async function main(isFailed = false, failedResponse = '') {
   const htmlTagContect = await getBodyHTML(BASE_URL);
-  const prompt = await createPrompt(htmlTagContect);
+  const prompt = await createPrompt(htmlTagContect, isFailed, failedResponse);
   console.log(prompt);
   const response = await generateTestCode(prompt);
   console.log(" ********** response *********");
@@ -31,7 +31,7 @@ async function main() {
       count += 1;
     }
   }
-    
+  return response;
 };
 
 main();

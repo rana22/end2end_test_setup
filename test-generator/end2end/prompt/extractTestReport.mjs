@@ -13,6 +13,6 @@ const summary = failedTests.map(test => ({
 }));
 
 fs.writeFileSync(
-    'test-results/failed-summary.json',
+    'test-results/failures.json',
     JSON.stringify(summary, null, 2)
 );

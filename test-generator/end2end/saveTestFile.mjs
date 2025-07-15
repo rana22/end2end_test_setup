@@ -5,7 +5,7 @@ import path from 'path';
 export function generateTimestampedTestFilename() {
   const now = new Date();
   const formatted = now.toISOString().replace(/[:.]/g, '-');
-  return `./specs/${formatted}.spec.js`;
+  return `./specs/app.spec.js`;
 }
 
 export async function saveGeneratedTest(

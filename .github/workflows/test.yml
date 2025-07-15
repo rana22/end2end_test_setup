@@ -50,16 +50,19 @@ jobs:
         working-directory: ./test-generator
         run: npm ci --legacy-peer-deps
 
-      - name: Generate Playwright specs
-        working-directory: ./test-generator
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: npm run generate
-
       - name: Install Playwright Browsers
         working-directory: ./test-generator
         run: npx playwright install --with-deps
 
+      - name: Generate Playwright specs
+        id: run-tests
+        working-directory: ./test-generator
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        continue-on-error: true
+        run: npm run gen_test
+
+      
       # - name: Run Playwright tests headlessly
       #   working-directory: ./test-generator
       #   run: npm run test:e2e
@@ -78,6 +81,7 @@ jobs:
       # 📝 Commit New Specs to Branch
       ####################################
       - name: Commit generated specs to test_branch
+        if: steps.run-tests.outcome == 'success'
         working-directory: ./test-generator
         run: |
           git config --global user.email "action@github.com"

@@ -13,7 +13,6 @@ export default {
   reporter: [
     ['list'], // for CLI output
     ['json', { outputFile: 'test-results/report.json' }], // for structured error logs
-    ['html', { outputFolder: 'test-results/html', open: 'never' }]
   ],
   projects: [
     {
