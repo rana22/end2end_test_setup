@@ -88,7 +88,15 @@ jobs:
           git config --global user.name "GitHub Action"
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
 
-          git checkout -B test_branch
+          # Check if branch exists on remote
+          if git ls-remote --exit-code --heads origin test_branch; then
+            echo "Branch test_branch already exists. Checking it out."
+            git fetch origin test_branch
+            git checkout test_branch
+          else
+            echo "Branch test_branch does not exist. Creating it."
+            git checkout -b test_branch
+          fi
 
           git add end2end/specs/
           git commit -m "Add generated E2E test specs" || echo "No changes to commit"
