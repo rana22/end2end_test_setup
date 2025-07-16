@@ -12,6 +12,29 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Prepare or validate test_branch
+        working-directory: ./test-generator
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+
+          echo "🔍 Checking if test_branch exists on remote..."
+          if git ls-remote --exit-code --heads origin test_branch; then
+            echo "✅ test_branch exists. Fetching and checking it out..."
+            git fetch origin test_branch
+            if git checkout test_branch; then
+              echo "✅ Checked out test_branch."
+            else
+              echo "❌ Failed to checkout test_branch. Cleaning up and exiting."
+              git branch -D test_branch || true
+              exit 1
+            fi
+          else
+            echo "ℹ️ test_branch does not exist. Creating it from current state."
+            git checkout -b test_branch
+          fi
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -80,24 +103,46 @@ jobs:
       ####################################
       # 📝 Commit New Specs to Branch
       ####################################
-      - name: Commit generated specs to test_branch
+      - name: Commit and push to test_branch
         if: steps.run-tests.outcome == 'success'
         working-directory: ./test-generator
         run: |
-          git config --global user.email "action@github.com"
-          git config --global user.name "GitHub Action"
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-
-          # Check if branch exists on remote
-          if git ls-remote --exit-code --heads origin test_branch; then
-            echo "Branch test_branch already exists. Checking it out."
-            git fetch origin test_branch
-            git checkout test_branch
-          else
-            echo "Branch test_branch does not exist. Creating it."
-            git checkout -b test_branch
-          fi
-
           git add end2end/specs/
           git commit -m "Add generated E2E test specs" || echo "No changes to commit"
           git push origin test_branch
+      
+      - name: Clean up failed test_branch
+        if: steps.run-tests.outcome == 'failure'
+        working-directory: ./test-generator
+        run: |
+          git add end2end/specs/
+          git commit -m "Add generated E2E test specs" || echo "No changes to commit"
+          git push origin test_branch
+        # run: |
+        #   echo "❌ Tests failed. Cleaning up local test_branch (not pushing)."
+        #   git checkout main  # or previous branch
+        #   git branch -D test_branch || true
+      
+
+      # - name: Commit generated specs to test_branch
+      #   if: steps.run-tests.outcome == 'success'
+      #   working-directory: ./test-generator
+      #   run: |
+      #     git config --global user.email "action@github.com"
+      #     git config --global user.name "GitHub Action"
+      #     git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+
+      #     # Check if branch exists on remote
+      #     if git ls-remote --exit-code --heads origin test_branch; then
+      #       echo "Branch test_branch already exists. Checking it out."
+      #       git fetch origin test_branch
+      #       git checkout test_branch
+      #     else
+      #       echo "Branch test_branch does not exist. Creating it."
+      #       git checkout -b test_branch
+      #     fi
+
+      #     git add end2end/specs/
+      #     git commit -m "Add generated E2E test specs" || echo "No changes to commit"
+      #     git push origin test_branch
+     
