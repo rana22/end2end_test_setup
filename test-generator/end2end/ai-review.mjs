@@ -8,7 +8,10 @@ const openai = new OpenAI({
 
 (async () => {
   const [owner, repo] = process.env.GITHUB_REPOSITORY.split("/");
-  const prNumber = process.env.GITHUB_REF.split("/").pop();
+  // const prNumber = process.env.GITHUB_REF.split("/").pop();
+  console.log("pr info");
+  console.log(process.env.GITHUB_REF);
+  const prNumber = parseInt(process.env.GITHUB_REF.split("/").pop(), 10);
 
   // Get PR diff
   const { data: pr } = await octokit.pulls.get({ owner, repo, pull_number: prNumber });
