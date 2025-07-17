@@ -29,7 +29,7 @@ const openai = new OpenAI({
     ]
   });
 
-  const reviewText = res.data.choices[0].message.content;
+  const reviewText = res.choices[0].message.content ?? '';
 
   // Post comment to PR
   await octokit.issues.createComment({
