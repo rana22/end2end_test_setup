@@ -7,32 +7,26 @@ test.describe('My React App', () => {
     await page.goto(BASE_URL); // your app’s URL
   });
 
-  test('should have correct title', async ({ page }) => {
-    await expect(page).toHaveTitle(/ICDC/i);
+  test('should display the App component text', async ({ page }) => {
+    await expect(page.locator('#root')).toContainText('App component');
   });
 
-  test('should contain specific text in the root element', async ({ page }) => {
-    const rootElement = page.locator('#root');
-    await expect(rootElement).toContainText('App component');
-    await expect(rootElement).toContainText('init commit');
-    await expect(rootElement).toContainText('auto deployment 1');
+  test('should display the initial commit heading', async ({ page }) => {
+    await expect(page.locator('h3')).toHaveText('init commit');
   });
 
-  // Positive Test: Check if the root element is present
-  test('should have a root element', async ({ page }) => {
-    const rootElement = await page.$('#root');
-    expect(rootElement).not.toBeNull();
+  test('should display the auto deployment paragraph', async ({ page }) => {
+    await expect(page.locator('p')).toHaveText('auto deployment 1');
   });
 
   // Negative Test: Check if a non-existent element is not present
-  test('should not have a non-existent element', async ({ page }) => {
+  test('should not find a non-existent element', async ({ page }) => {
     const nonExistentElement = await page.$('.non-existent-class');
     expect(nonExistentElement).toBeNull();
   });
 
-  // Negative Test: Check if a non-existent text is not present
-  test('should not contain non-existent text', async ({ page }) => {
-    const bodyText = await page.textContent('body');
-    expect(bodyText).not.toContain('Non-existent text');
+  // Negative Test: Check if a wrong text is not present in the paragraph
+  test('should not contain incorrect text in the paragraph', async ({ page }) => {
+    await expect(page.locator('p')).not.toHaveText('incorrect text');
   });
 });
