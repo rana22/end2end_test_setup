@@ -1,10 +1,10 @@
 import { Octokit } from "@octokit/rest";
-import { Configuration, OpenAIApi  } from 'openai';
+import OpenAI from 'openai';
 
 const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
-const openai = new OpenAIApi(
-  new Configuration({ apiKey: process.env.OPENAI_API_KEY })
-);
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY, // must be set in .env
+});
 
 (async () => {
   const [owner, repo] = process.env.GITHUB_REPOSITORY.split("/");
@@ -15,7 +15,7 @@ const openai = new OpenAIApi(
   const diff = `Title: ${pr.title}\n\n${pr.body}\n\n`;
 
   // Send to OpenAI
-  const res = await openai.createChatCompletion({
+  const res = await openai.chat.completions.create({
     model: 'gpt-4o',
     messages: [
       { role: "system", content: "You are a helpful code reviewer." },
