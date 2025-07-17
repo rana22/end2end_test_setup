@@ -28,7 +28,8 @@
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "generate": "node ./end2end/main.mjs",
-    "gen_test": "node ./end2end/run-and-heal.mjs"
+    "gen_test": "node ./end2end/run-and-heal.mjs",
+    "review": "node ./end2end/ai-review.mjs"
   },
   "eslintConfig": {
     "extends": "react-app"
