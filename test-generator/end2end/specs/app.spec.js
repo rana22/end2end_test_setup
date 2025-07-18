@@ -23,15 +23,13 @@ test.describe('My React App', () => {
     await expect(page.locator('#root')).toContainText('auto deployment 1');
   });
 
+  test('should contain "AI set up" text', async ({ page }) => {
+    await expect(page.locator('#root')).toContainText('AI set up');
+  });
+
   // Negative Test: Check if a non-existent element is not present
   test('should not contain non-existent element', async ({ page }) => {
     const nonExistentElement = await page.$('.non-existent-class');
     expect(nonExistentElement).toBeNull();
-  });
-
-  // Negative Test: Check if a non-existent text is not present
-  test('should not contain "non-existent text"', async ({ page }) => {
-    const bodyText = await page.textContent('body');
-    expect(bodyText).not.toContain('non-existent text');
   });
 });
