@@ -2,7 +2,7 @@ name: Build & E2E Tests
 
 on:
   push:
-    branches: [main, "auto-e2e/**"]
+    branches: [main, "test_branch", "auto-e2e/**"]
   pull_request:
 
 jobs:
