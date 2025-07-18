@@ -9,7 +9,7 @@ const App = () => {
       App component
       <h3>init commit</h3>
       <p>auto deployment 1</p>
-      <h3> John Doe </h3>
+      <p>AI set up</p>
     </>
   );
 };

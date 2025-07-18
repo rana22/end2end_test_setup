@@ -7,30 +7,34 @@ test.describe('My React App', () => {
     await page.goto(BASE_URL); // your app’s URL
   });
 
-  test('should display the App component', async ({ page }) => {
-    const appComponent = await page.locator('#root');
-    await expect(appComponent).toBeVisible();
+  test('should have correct title', async ({ page }) => {
+    await expect(page).toHaveTitle(/ICDC/i);
   });
 
-  test('should contain the text "init commit"', async ({ page }) => {
-    const initCommitText = await page.locator('h3');
-    await expect(initCommitText).toHaveText('init commit');
+  test('should contain "App component" text', async ({ page }) => {
+    await expect(page.locator('#root')).toContainText('App component');
   });
 
-  test('should contain the text "auto deployment 1"', async ({ page }) => {
-    const autoDeploymentText = await page.locator('p');
-    await expect(autoDeploymentText).toHaveText('auto deployment 1');
+  test('should contain "init commit" text', async ({ page }) => {
+    await expect(page.locator('#root h3')).toContainText('init commit');
+  });
+
+  test('should contain "auto deployment 1" text', async ({ page }) => {
+    await expect(page.locator('#root p')).toContainText('auto deployment 1');
+  });
+
+  test('should contain "AI set up" text', async ({ page }) => {
+    await expect(page.locator('#root p')).toContainText('AI set up');
   });
 
   // Negative Test: Check if a non-existent element is not present
-  test('should not contain a non-existent element', async ({ page }) => {
-    const nonExistentElement = await page.locator('.non-existent-class');
-    await expect(nonExistentElement).toHaveCount(0);
+  test('should not contain non-existent element', async ({ page }) => {
+    const nonExistentElement = await page.$('.non-existent-class');
+    expect(nonExistentElement).toBeNull();
   });
 
-  // Negative Test: Check if a wrong text is not present
-  test('should not contain incorrect text', async ({ page }) => {
-    const incorrectText = await page.locator('body');
-    await expect(incorrectText).not.toContainText('incorrect text');
+  // Negative Test: Check if a non-existent text is not present
+  test('should not contain non-existent text', async ({ page }) => {
+    await expect(page.locator('#root')).not.toContainText('Non-existent text');
   });
 });
