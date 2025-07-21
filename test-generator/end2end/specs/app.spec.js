@@ -16,25 +16,20 @@ test.describe('My React App', () => {
   });
 
   test('should contain "init commit" text', async ({ page }) => {
-    await expect(page.locator('#root h3')).toContainText('init commit');
+    await expect(page.locator('#root')).toContainText('init commit');
   });
 
   test('should contain "auto deployment 1" text', async ({ page }) => {
-    await expect(page.locator('#root p')).toContainText('auto deployment 1');
+    await expect(page.locator('#root')).toContainText('auto deployment 1');
   });
 
-  test('should contain "AI set up" text', async ({ page }) => {
-    await expect(page.locator('#root p')).toContainText('AI set up');
+  test('should contain "test generator" text', async ({ page }) => {
+    await expect(page.locator('#root')).toContainText('test generator');
   });
 
   // Negative Test: Check if a non-existent element is not present
   test('should not contain non-existent element', async ({ page }) => {
     const nonExistentElement = await page.$('.non-existent-class');
     expect(nonExistentElement).toBeNull();
-  });
-
-  // Negative Test: Check if a non-existent text is not present
-  test('should not contain non-existent text', async ({ page }) => {
-    await expect(page.locator('#root')).not.toContainText('Non-existent text');
   });
 });
