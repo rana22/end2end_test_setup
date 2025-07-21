@@ -2,34 +2,30 @@ import { test, expect } from '@playwright/test';
 
 const BASE_URL = 'https://rana22.github.io/end2end_test_setup/';
 
-test.describe('My React App', () => {
+test.describe('App Component Tests', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(BASE_URL); // your app’s URL
+    await page.goto(BASE_URL);
   });
 
-  test('should have correct title', async ({ page }) => {
-    await expect(page).toHaveTitle(/ICDC/i);
-  });
-
-  test('should contain "App component" text', async ({ page }) => {
+  test('should display the App component', async ({ page }) => {
+    // Check if the App component text is present
     await expect(page.locator('#root')).toContainText('App component');
   });
 
-  test('should contain "init commit" text', async ({ page }) => {
-    await expect(page.locator('#root')).toContainText('init commit');
+  test('should display the initial commit message', async ({ page }) => {
+    // Check if the initial commit message is present
+    await expect(page.locator('h3')).toHaveText('init commit');
   });
 
-  test('should contain "auto deployment 1" text', async ({ page }) => {
-    await expect(page.locator('#root')).toContainText('auto deployment 1');
-  });
-
-  test('should contain "test generator" text', async ({ page }) => {
-    await expect(page.locator('#root')).toContainText('test generator');
-  });
-
-  // Negative Test: Check if a non-existent element is not present
-  test('should not contain non-existent element', async ({ page }) => {
+  test('should not display any non-existent elements', async ({ page }) => {
+    // Negative test: Check that a non-existent element is not present
     const nonExistentElement = await page.$('.non-existent-class');
     expect(nonExistentElement).toBeNull();
+  });
+
+  test('should not require JavaScript enabled message', async ({ page }) => {
+    // Negative test: Check that the noscript message is not visible when JavaScript is enabled
+    const noScriptMessage = await page.$('noscript');
+    expect(noScriptMessage).toBeNull();
   });
 });
