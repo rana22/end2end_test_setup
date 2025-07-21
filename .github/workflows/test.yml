@@ -2,7 +2,7 @@ name: Build & E2E Tests
 
 on:
   push:
-    branches: [main, "test_branch", "auto-e2e/**"]
+    branches: [main, "test_branch", "demo_test_branch", "auto-e2e/**"]
   pull_request:
 
 jobs:
@@ -109,7 +109,7 @@ jobs:
         run: |
           git add end2end/specs/
           git commit -m "Add generated E2E test specs" || echo "No changes to commit"
-          git push origin test_branch
+          git push origin demo_test_branch
       
       - name: Clean up failed test_branch
         if: steps.run-tests.outcome == 'failure'
@@ -117,7 +117,7 @@ jobs:
         run: |
           git add end2end/specs/
           git commit -m "Add generated E2E test specs" || echo "No changes to commit"
-          git push origin test_branch
+          git push origin demo_test_branch
         # run: |
         #   echo "❌ Tests failed. Cleaning up local test_branch (not pushing)."
         #   git checkout main  # or previous branch
