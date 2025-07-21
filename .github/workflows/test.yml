@@ -12,27 +12,27 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Prepare or validate test_branch
+      - name: Prepare or validate demo_test_branch
         working-directory: ./test-generator
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
 
-          echo "🔍 Checking if test_branch exists on remote..."
-          if git ls-remote --exit-code --heads origin test_branch; then
-            echo "✅ test_branch exists. Fetching and checking it out..."
-            git fetch origin test_branch
-            if git checkout test_branch; then
-              echo "✅ Checked out test_branch."
+          echo "🔍 Checking if demo_test_branch exists on remote..."
+          if git ls-remote --exit-code --heads origin demo_test_branch; then
+            echo "✅ demo_test_branch exists. Fetching and checking it out..."
+            git fetch origin demo_test_branch
+            if git checkout demo_test_branch; then
+              echo "✅ Checked out demo_test_branch."
             else
-              echo "❌ Failed to checkout test_branch. Cleaning up and exiting."
-              git branch -D test_branch || true
+              echo "❌ Failed to checkout demo_test_branch. Cleaning up and exiting."
+              git branch -D demo_test_branch || true
               exit 1
             fi
           else
             echo "ℹ️ test_branch does not exist. Creating it from current state."
-            git checkout -b test_branch
+            git checkout -b demo_test_branch
           fi
 
       - name: Setup Node
