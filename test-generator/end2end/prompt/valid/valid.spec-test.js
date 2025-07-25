@@ -1,8 +1,6 @@
 import { test, expect } from '@playwright/test';
 
 const BASE_URL = 'https://rana22.github.io/end2end_test_setup/';
-// const BASE_URL = 'http://localhost:5173/';
-
 test.describe('My React App', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(BASE_URL); // your app’s URL

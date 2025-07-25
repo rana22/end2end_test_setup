@@ -8,7 +8,6 @@ import { saveGeneratedTest } from "./saveTestFile.mjs";
 import { extractCodeObjects, generateTestCode } from "./testGenerator.mjs";
 
 const BASE_URL = 'https://rana22.github.io/end2end_test_setup/';
-// const BASE_URL = 'http://localhost:5173/';
 
 export async function main(isFailed = false, failedResponse = '') {
   const htmlTagContect = await getBodyHTML(BASE_URL);
