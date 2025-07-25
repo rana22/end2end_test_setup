@@ -2,7 +2,7 @@ name: Build & E2E Tests
 
 on:
   push:
-    branches: ["main", "test_branch"]
+    branches: ["test_branch"]
   pull_request:
 
 jobs:
@@ -44,22 +44,22 @@ jobs:
       # 🧱 Build and Deploy React App
       ####################################
       - name: Install React app deps
-        working-directory: ./design2component
+        working-directory: ./react-app
         run: npm ci --legacy-peer-deps
 
       - name: Build React app
-        working-directory: ./design2component
+        working-directory: ./react-app
         run: npm run build
 
       - name: Configure Git identity
-        working-directory: ./design2component
+        working-directory: ./react-app
         run: |
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
 
       - name: Deploy to GitHub Pages
-        working-directory: ./design2component
+        working-directory: ./react-app
         run: npm run deploy
 
       ####################################

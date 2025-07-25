@@ -1,6 +1,7 @@
 "use client";
 import * as React from 'react';
 import { useState } from 'react'
+import HeaderLogo from '../assets/icon/logo.svg'
 
 /** @jsx jsx */
 import { jsx } from '@emotion/react'
@@ -102,21 +103,17 @@ function HomePage() {
             }}
           >
             <img
-              src="/assets/icon/logo.svg"
+              src={HeaderLogo}
               alt="Cancer Research Data Commons Logo"
               css={{
                 aspectRatio: '7.19',
-                objectFit: 'cover',
+                objectFit: 'contain',
                 objectPosition: 'center',
-                width: '300%',
+                width: 'auto',
+                height: '60px',
                 flexShrink: '0',
                 boxSizing: 'border-box',
-                minHeight: '20px',
-                minWidth: '20px',
-                overflow: 'hidden',
-                maxWidth: '512px',
-                height: 'auto',
-                alignSelf: 'stretch',
+                maxWidth: '400px',
                 margin: 'auto auto auto 0',
               }}
             />
@@ -350,9 +347,19 @@ function HomePage() {
                 margin: '0 auto',
               }}
             >
+              <div
+                css={{
+                  position: 'relative',
+                  marginTop: '20px',
+                  height: 'auto',
+                  color: 'rgba(246, 202, 216, 1)',
+                }}
+              >
+                Enter some text...
+              </div>
               <img
-                alt="Healthy golden retriever dogs running together in an open field"
-                src="https://images.pexels.com/photos/8160757/pexels-photo-8160757.jpeg"
+                alt="Four curious puppies peeking over a wooden fence, showcasing their playful nature"
+                src="https://images.pexels.com/photos/2827238/pexels-photo-2827238.jpeg"
                 css={{
                   objectFit: 'cover',
                   objectPosition: 'center',
@@ -494,24 +501,24 @@ function HomePage() {
                     title: 'Comparative Oncology Program',
                     studies: '8 Studies',
                     description: 'The Comparative Oncology Program advances cancer research by studying naturally occurring cancers in companion animals. This approach provides valuable insights into cancer biology and treatment development that benefit both veterinary and human medicine.',
-                    image: 'https://images.pexels.com/photos/7470631/pexels-photo-7470631.jpeg',
-                    imageAlt: 'Veterinarian examining a dog for cancer research',
+                    image: 'https://images.pexels.com/photos/6234633/pexels-photo-6234633.jpeg',
+                    imageAlt: 'Veterinarian conducting a health check on a black dog in a clinic',
                     hasExternalSite: true,
                   },
                   {
                     title: 'Canine Genomics Program',
                     studies: '12 Studies',
                     description: 'The Canine Genomics Program focuses on understanding the genetic basis of cancer in dogs. By analyzing genomic data from canine cancer patients, we identify genetic markers and pathways that contribute to cancer development and progression.',
-                    image: 'https://images.pexels.com/photos/25626515/pexels-photo-25626515.jpeg',
-                    imageAlt: 'DNA sequencing and genomic research laboratory',
+                    image: 'https://images.pexels.com/photos/7474850/pexels-photo-7474850.jpeg',
+                    imageAlt: 'Volunteers conducting a health check-up on a dog in a clinic setting',
                     hasExternalSite: false,
                   },
                   {
                     title: 'Immunotherapy Research Program',
                     studies: '3 Studies',
                     description: 'The Immunotherapy Research Program develops and tests novel immunotherapeutic approaches for treating canine cancers. Our research explores how to harness the immune system to fight cancer more effectively in both dogs and humans.',
-                    image: 'https://images.pexels.com/photos/6436314/pexels-photo-6436314.jpeg',
-                    imageAlt: 'Immune cells and cancer treatment research',
+                    image: 'https://images.pexels.com/photos/15356245/pexels-photo-15356245.jpeg',
+                    imageAlt: 'Adorable Golden Retriever puppy chewing a colorful rope toy on grass',
                     hasExternalSite: true,
                   },
                 ].map((program, index) => (

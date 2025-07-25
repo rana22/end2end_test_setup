@@ -8,7 +8,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(?:js|mjs|cjs)$/,
+        test: /\.(?:js|jsx|mjs|cjs)$/,
         exclude: paths.appNodeModules,
         use: {
           loader: 'babel-loader',
@@ -24,6 +24,9 @@ module.exports = {
         type: 'asset/inline',
       }
     ],
+  },
+  resolve: {
+    extensions: ['.js', '.jsx', '.json'], // ✅ add this block
   },
   optimization: {
     splitChunks: {

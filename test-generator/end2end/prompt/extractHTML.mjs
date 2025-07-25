@@ -1,6 +1,8 @@
 import puppeteer from "puppeteer";
 
-const BASE_URL = 'https://rana22.github.io/end2end_test_setup/';
+// const BASE_URL = 'https://rana22.github.io/end2end_test_setup/';
+
+const BASE_URL = 'http://localhost:5173/';
 export async function getBodyHTML(url) {
   const browser = await puppeteer.launch({
   headless: true,
