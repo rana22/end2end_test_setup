@@ -2,7 +2,7 @@ name: Build & E2E Tests
 
 on:
   push:
-    branches: ["test_branch"]
+    branches: ["main", "test_branch"]
   pull_request:
 
 jobs:
