@@ -1,0 +1,39 @@
+name: Build Component
+
+on:
+  push:
+    branches: ["design_2_component"]
+  pull_request:
+
+jobs:
+  design-2-component:
+    runs-on: ubuntu-latest
+
+    steps:
+        - uses: actions/checkout@v4
+        
+        - name: Prepare or validate test_branch
+          working-directory: ./test-generator
+          run: |
+            set -e
+            BRANCH_NAME="design_2_component"
+
+            git config --global user.email "action@github.com"
+            git config --global user.name "GitHub Action"
+            git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+
+            echo "🔍 Checking if $BRANCH_NAME exists on remote..."
+            if git ls-remote --exit-code --heads origin "$BRANCH_NAME"; then
+              echo "✅ $BRANCH_NAME exists. Fetching and checking it out..."
+              git fetch origin "$BRANCH_NAME"
+              if git checkout "$BRANCH_NAME"; then
+                echo "✅ Checked out $BRANCH_NAME."
+              else
+                echo "❌ Failed to checkout $BRANCH_NAME. Cleaning up and exiting."
+                git branch -D "$BRANCH_NAME" || true
+                exit 1
+              fi
+            else
+              echo "ℹ️ $BRANCH_NAME does not exist. Creating it from current state."
+              git checkout -b "$BRANCH_NAME"
+            fi
