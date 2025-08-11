@@ -5,10 +5,10 @@ import { main } from './main.mjs';
 let maxTries = 3;
 let currentTry = 1;
 let passed = false;
-let isFailed = false;
 let failedResponse = '';
 while (!passed && currentTry <= maxTries) {
-// while (currentTry <= maxTries) {
+  let isFailed = false;
+  // while (currentTry <= maxTries) {
   console.log(`🧪 Attempt #${currentTry} - Generating and Running Tests`);
 
   // 1. Generate specs via OpenAI
@@ -23,6 +23,7 @@ while (!passed && currentTry <= maxTries) {
     console.log('❌ Tests failed. Sending feedback...');
     isFailed = true;
     failedResponse = structuredClone(response);
+    execSync('npm run extract-log', { stdio: 'inherit' });
     // await feedback(); // You already have this method
     
   } finally {
