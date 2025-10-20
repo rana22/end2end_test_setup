@@ -19,7 +19,7 @@ export default {
       name: 'chromium',
       use: {
         browserName: 'chromium',
-        headless: true,
+        headless: false,
         slowMo: 100,
         baseURL: 'https://rana22.github.io/end2end_test_setup/',
          launchOptions: {

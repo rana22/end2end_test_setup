@@ -2,13 +2,45 @@
 import * as React from 'react';
 import { useState } from 'react'
 import HeaderLogo from '../assets/icon/logo.svg'
+// Local lightweight dialog implementation to avoid external dependencies
+function SimpleDialog({ open, onClose, title, children }) {
+  React.useEffect(() => {
+    if (!open) return;
+    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [open, onClose]);
+
+  if (!open) return null;
+
+  return (
+    <div css={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 20000 }}>
+      <div role="dialog" aria-modal="true" aria-label={title} css={{ background: 'rgb(255, 255, 255)', borderRadius: '8px', width: '100%', maxWidth: '600px', boxShadow: 'rgba(0,0,0,0.2) 0px 8px 24px', overflow: 'hidden' }}>
+        <div css={{ padding: '16px 48px 16px 16px', position: 'relative', font: '600 18px Raleway, sans-serif', borderBottom: '1px solid rgba(0,0,0,0.06)' }}>
+          {title}
+          <button onClick={onClose} aria-label="Close dialog" css={{ position: 'absolute', right: 8, top: 8, background: 'none', border: 'none', cursor: 'pointer', padding: 8 }}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+        <div css={{ padding: '16px', font: '14px Open Sans, sans-serif' }}>{children}</div>
+        <div css={{ display: 'flex', justifyContent: 'flex-end', gap: '12px', padding: '12px 16px', borderTop: '1px solid rgba(0,0,0,0.06)' }}>
+          <button onClick={onClose} css={{ backgroundColor: 'rgb(18, 91, 130)', color: 'rgb(255, 255, 255)', padding: '9px 16px', border: 'none', borderRadius: '8px', cursor: 'pointer', font: '600 14px Lato, sans-serif' }}>Close</button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 /** @jsx jsx */
 import { jsx } from '@emotion/react'
+import ViewContent from '../customComp/ContentView';
+import TemplateView from '../customComp/TemplateView';
+import { Hero } from '../customComp/Hero';
 
 function HomePage() {
   const [searchQuery, setSearchQuery] = useState(() => (""))
   const [activeSection, setActiveSection] = useState(() => ("programs"))
+  const [dialogOpen, setDialogOpen] = useState(false)
 
   function handleSearch() {
     if (searchQuery.trim()) {
@@ -412,7 +444,7 @@ function HomePage() {
                 }}
               >
                 <button
-                  onClick={() => viewStudies('all')}
+                  onClick={() => setDialogOpen(true)}
                   className="builder-b24583d9a17d4af78f70764b8264aa85"
                   css={{
                     backgroundColor: 'rgb(18, 91, 130)',
@@ -501,16 +533,16 @@ function HomePage() {
                     title: 'Comparative Oncology Program',
                     studies: '8 Studies',
                     description: 'The Comparative Oncology Program advances cancer research by studying naturally occurring cancers in companion animals. This approach provides valuable insights into cancer biology and treatment development that benefit both veterinary and human medicine.',
-                    image: 'https://images.pexels.com/photos/6234633/pexels-photo-6234633.jpeg',
-                    imageAlt: 'Veterinarian conducting a health check on a black dog in a clinic',
+                    image: 'https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg',
+                    imageAlt: 'Playful puppy sitting on green grass',
                     hasExternalSite: true,
                   },
                   {
                     title: 'Canine Genomics Program',
                     studies: '12 Studies',
                     description: 'The Canine Genomics Program focuses on understanding the genetic basis of cancer in dogs. By analyzing genomic data from canine cancer patients, we identify genetic markers and pathways that contribute to cancer development and progression.',
-                    image: 'https://images.pexels.com/photos/7474850/pexels-photo-7474850.jpeg',
-                    imageAlt: 'Volunteers conducting a health check-up on a dog in a clinic setting',
+                    image: 'https://images.pexels.com/photos/1805164/pexels-photo-1805164.jpeg',
+                    imageAlt: 'Sleeping puppy with paws up on a cozy blanket',
                     hasExternalSite: false,
                   },
                   {
@@ -651,9 +683,26 @@ function HomePage() {
                 ))}
               </div>
             </div>
+              <div
+                scriptsClientOnly={true}
+                css={{
+                  display: "flex",
+                  flexDirection: "column",
+                  position: "relative",
+                  marginTop: "20px",
+                }}
+              >
+                <div
+                  dangerouslySetInnerHTML={{ __html: "<p>Hello there, I am custom HTML code!</p>\n" }}
+                  css={{}}
+                />
+              </div>
           </section>
+          <h2>test</h2>
+          <ViewContent path="/content" />
+          <TemplateView />
         </main>
-        
+
         <footer
           className="footer-component"
           css={{
@@ -880,6 +929,10 @@ function HomePage() {
         </footer>
       </div>
       
+      <SimpleDialog open={dialogOpen} onClose={() => setDialogOpen(false)} title="Studies Overview">
+        <p style={{ margin: 0 }}>This dialog provides details about our studies and programs. Click below to close.</p>
+      </SimpleDialog>
+
       <style>{`.builder-22e8d4da6f2d48b8a6a688c9563fe0e1:focus {
     outline: none;
     border-color: rgb(18, 91, 130)

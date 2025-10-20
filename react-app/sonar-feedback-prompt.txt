@@ -1,0 +1,4 @@
+- [File: my-app:src/components/HomePage.jsx | Line 308] Do not use Array index in keys (Severity: MAJOR)
+- [File: my-app:src/components/HomePage.jsx | Line 526] Do not use Array index in keys (Severity: MAJOR)
+- [File: my-app:src/components/HomePage.jsx | Line 745] Do not use Array index in keys (Severity: MAJOR)
+- [File: my-app:src/components/HomePage.jsx | Line 841] Do not use Array index in keys (Severity: MAJOR)

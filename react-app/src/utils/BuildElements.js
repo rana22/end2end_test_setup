@@ -17,8 +17,8 @@ export const builderJsonToHtml = (node) => {
     if (node?.properties) {
         const keys = Object.keys(node?.properties);
         keys.forEach((key) => {
-            const value = node?.properties[key] || `""`;
-            const attrVal = ` ${key}=${value}`;
+            const value = node?.properties[key] ?? '';
+            const attrVal = ` ${key}="${String(value)}"`;
             tag += attrVal;
         })
     }
@@ -26,12 +26,12 @@ export const builderJsonToHtml = (node) => {
     // add style
     if (node?.responsiveStyles && node?.responsiveStyles?.large) {
         const styleObject = getValueByKey(node, "responsiveStyles");
-        console.log(styleObject);
-        const styleString = Object.entries(styleObject.large)
-            .map(([key, value]) => `${key.replace(/([A-Z])/g, '-$1').toLowerCase()}: ${value}`)
-            .join('; ');
-        console.log(styleString)
-        tag += ` style=\" ${styleString} \" }}`;
+        if (styleObject && typeof styleObject.large === 'object') {
+            const styleString = Object.entries(styleObject.large)
+                .map(([key, value]) => `${key.replace(/([A-Z])/g, '-$1').toLowerCase()}: ${value}`)
+                .join('; ');
+            tag += ` style="${styleString}"`;
+        }
     }
 
     // Recursively generate children HTML
